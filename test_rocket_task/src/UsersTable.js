@@ -24,7 +24,7 @@ export default function UsersTable({ data }) {
       <table className={styles.table}>
         <thead className={styles.thead}>
           <tr>
-            <th>ID</th>
+            <th className={styles.sticky}>ID</th>
             <th>GIVEN NAME</th>
             <th>FAMILY NAME</th>
             <th>EMAIL</th>
@@ -33,15 +33,17 @@ export default function UsersTable({ data }) {
         <tbody className={styles.tbody}>
           {data?.data?.map((user, ind) => (
             <tr key={ind} onClick={() => onRowClick(user)}>
-              <td key={user.id}>{user.id}</td>
+              <td className={styles.sticky} key={user.id}>
+                {user.id}
+              </td>
               <td key={user.first_name}>{user.first_name}</td>
               <td key={user.last_name}>{user.last_name}</td>
               <td key={user.email}> {user.email}</td>
             </tr>
           ))}
         </tbody>
-        <Modal show={show} handleClose={hideModal} user={user} />
       </table>
+      <Modal show={show} handleClose={hideModal} user={user} />
     </div>
   );
 }

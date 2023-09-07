@@ -35,22 +35,20 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.containerInner}>
-        {status === "loading" ? (
-          <div>Loading...</div>
-        ) : status === "error" ? (
-          <div>Error: {error.message}</div>
-        ) : (
-          <UsersTable data={data} />
-        )}
-        {data ? (
-          <ButtonsBlock
-            page={data.page}
-            total_pages={data.total_pages}
-            setPage={setPage}
-          />
-        ) : null}
-      </div>
+      {status === "loading" ? (
+        <div>Loading...</div>
+      ) : status === "error" ? (
+        <div>Error: {error.message}</div>
+      ) : (
+        <UsersTable data={data} />
+      )}
+      {data ? (
+        <ButtonsBlock
+          page={data.page}
+          total_pages={data.total_pages}
+          setPage={setPage}
+        />
+      ) : null}
     </div>
   );
 }
