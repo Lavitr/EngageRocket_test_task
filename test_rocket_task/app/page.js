@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import styles from "./page.module.css";
 import UsersTable from "@/src/UsersTable";
+import ButtonsBlock from "@/src/ButtonsBlock";
 
 async function fetchProjects(page = 1) {
   const data = await fetch(`https://reqres.in/api/users?page=${page}`);
@@ -42,35 +43,12 @@ export default function Home() {
         ) : (
           <UsersTable data={data} />
         )}
-        {data?.total_pages ? (
-          <div className={styles.buttonContainer}>
-            <button
-              onClick={() => setPage((old) => Math.max(old - 1, 1))}
-              disabled={page === 1}
-            >
-              &lt;
-            </button>
-            {new Array(data?.total_pages).fill(null).map((i, index) => (
-              <button
-                key={index}
-                disabled={data?.page === index + 1}
-                className={data?.page === index + 1 ? styles.active : ""}
-                onClick={() => setPage(index + 1)}
-              >
-                {index + 1}
-              </button>
-            ))}
-            <button
-              onClick={() =>
-                setPage((old) =>
-                  data?.page < data?.total_pages ? old + 1 : old
-                )
-              }
-              disabled={!(data?.page < data?.total_pages)}
-            >
-              &gt;
-            </button>
-          </div>
+        {data ? (
+          <ButtonsBlock
+            page={data.page}
+            total_pages={data.total_pages}
+            setPage={setPage}
+          />
         ) : null}
       </div>
     </div>
